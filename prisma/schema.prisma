@@ -1,0 +1,55 @@
+// Oficina Mecânica. As tabelas continuam as mesmas do trabalho original.
+
+generator client {
+  provider            = "prisma-client"
+  output              = "../generated/prisma"
+  importFileExtension = "ts"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Quem entra no sistema. login não pode repetir.
+model Usuario {
+  id    Int    @id @default(autoincrement())
+  nome  String @db.VarChar(100)
+  login String @unique @db.VarChar(50)
+  senha String
+
+  @@map("usuario")
+}
+
+model Cliente {
+  id       Int       @id @default(autoincrement())
+  nome     String    @db.VarChar(100)
+  cpf      String    @db.VarChar(14)
+  telefone String    @db.VarChar(20)
+  veiculos Veiculo[]
+
+  @@map("cliente")
+}
+
+// id_cliente só aceita um cliente que exista. Apagar o cliente apaga os veículos.
+model Veiculo {
+  id           Int           @id @default(autoincrement())
+  placa        String        @db.VarChar(10)
+  modelo       String        @db.VarChar(60)
+  ano          Int
+  idCliente    Int           @map("id_cliente")
+  cliente      Cliente       @relation(fields: [idCliente], references: [id], onDelete: Cascade)
+  agendamentos Agendamento[]
+
+  @@map("veiculo")
+}
+
+// Só o dia, sem horário. Apagar o veículo apaga os agendamentos.
+model Agendamento {
+  id              Int      @id @default(autoincrement())
+  dataAgendamento DateTime @map("data_agendamento") @db.Date
+  servico         String   @db.VarChar(100)
+  idVeiculo       Int      @map("id_veiculo")
+  veiculo         Veiculo  @relation(fields: [idVeiculo], references: [id], onDelete: Cascade)
+
+  @@map("agendamento")
+}

@@ -1,0 +1,55 @@
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  margin: 0;
+  background: #f3f3f3;
+}
+
+nav {
+  background: #222;
+  color: #fff;
+  padding: 12px 20px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+}
+
+nav span {
+  margin-left: auto;
+}
+
+main {
+  padding: 20px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  background: #fff;
+  margin-top: 16px;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background: #ddd;
+}
+
+input, select, button {
+  padding: 6px;
+  margin: 4px;
+}
+
+.centro {
+  text-align: center;
+  margin-top: 80px;
+}
